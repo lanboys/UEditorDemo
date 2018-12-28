@@ -15,6 +15,17 @@
         <p>这里我可以写一些输入提示</p>
     </script>
     <script type="text/javascript">
+
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+
+        UE.Editor.prototype.getActionUrl = function (action) {
+            if (action == 'uploadimage') {
+                return 'http://localhost:8084/mvc/uploadFile';
+            } else {
+                return this._bkGetActionUrl.call(this, action);
+            }
+        }
+
         UE.getEditor('myEditor',{
             //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
             toolbars:[['FullScreen','simpleupload','Source', 'Undo', 'Redo','Bold','test']],
